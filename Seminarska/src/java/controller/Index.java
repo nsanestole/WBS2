@@ -13,6 +13,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Grad;
 import org.apache.jena.query.QueryExecution;
 import org.apache.jena.query.QueryExecutionFactory;
 import org.apache.jena.query.QueryFactory;
@@ -52,18 +53,23 @@ public class Index extends HttpServlet {
                 + "prefix dbo: <http://dbpedia.org/ontology/>\n"
                 + "prefix dbr: <http://dbpedia.org/resource/>\n"
                 + "prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n"
-                + "select ?grad\n" +
+                +
+"select ?grad ?slika\n" +
 "where { ?grad dbo:country dbr:Republic_of_Macedonia;\n" +
-"              rdf:type dbo:Settlement. }";
+"              rdf:type dbo:Settlement;\n" +
+"              dbo:thumbnail ?slika. }";
         org.apache.jena.query.Query query = QueryFactory.create(sparqlQuery);
         try (QueryExecution qexec = QueryExecutionFactory.sparqlService(sparqlEndpoint, query))
         {
             org.apache.jena.query.ResultSet result = qexec.execSelect();
-            ArrayList<String> lista = new ArrayList<>();
+            ArrayList<Grad> lista = new ArrayList<>();
             while(result.hasNext())
             {
                 QuerySolution sol = result.nextSolution();
-                lista.add(sol.get("grad").toString());
+                Grad g = new Grad();
+                g.setName(sol.get("grad").toString());
+                g.setImgUrl(sol.get("slika").toString());
+                lista.add(g);
             }
             request.setAttribute("gradovi", lista);
         }
