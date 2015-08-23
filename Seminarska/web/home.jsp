@@ -5,6 +5,7 @@
 --%>
 
 
+<%@page import="model.Grad"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -14,17 +15,20 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <%
-        ArrayList<String> lista = (ArrayList<String>) request.getAttribute("gradovi");
-        %>
-        <%
-        for(String item : lista)
+        <% ArrayList<Grad> lista = (ArrayList<Grad>)request.getAttribute("gradovi");
+        for(Grad item : lista)
         {
-            %>
-            <div class="text-center panel panel-body"> <%=item%></div>
-            <%
-        }
-        
+            
         %>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <span><%=item.getName() %></span>
+            </div>
+            <div class="panel-body">
+                <image src="<%=item.getImgUrl() %>"/>
+            </div>
+        </div>
+            
+                <% }%>
     </body>
 </html>
