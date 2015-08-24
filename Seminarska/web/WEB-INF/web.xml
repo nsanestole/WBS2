@@ -4,9 +4,17 @@
         <servlet-name>Index</servlet-name>
         <servlet-class>controller.Index</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CityDetails</servlet-name>
+        <servlet-class>controller.CityDetails</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Index</servlet-name>
         <url-pattern>/index</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CityDetails</servlet-name>
+        <url-pattern>/details</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

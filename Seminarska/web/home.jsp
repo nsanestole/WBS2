@@ -22,10 +22,16 @@
         %>
         <div class="panel panel-default">
             <div class="panel-heading">
-                <span><%=item.getName() %></span>
+                <%String str = item.getName();
+                        String []parts = str.split("/");
+                        %>
+                <span><%=parts[parts.length - 1]%></span>
             </div>
             <div class="panel-body">
                 <image src="<%=item.getImgUrl() %>"/>
+            </div>
+            <div>
+                <a href="/Seminarska/details">Show more details </a>
             </div>
         </div>
             
