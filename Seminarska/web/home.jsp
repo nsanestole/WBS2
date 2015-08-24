@@ -31,10 +31,10 @@
                 <image src="<%=item.getImgUrl() %>"/>
             </div>
             <div>
-                <a href="/Seminarska/details">Show more details </a>
+                <a href="/Seminarska/details?grad=<%=parts[parts.length - 1]%>">Show more details </a>
             </div>
         </div>
-            
-                <% }%>
+            <% } %>
+                
     </body>
 </html>

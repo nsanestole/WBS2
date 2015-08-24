@@ -49,13 +49,14 @@ public class CityDetails extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String sparqlEndpoint = "http://dbpedia.org/sparql";
-         
+         String str = request.getParameter("grad");
+         System.out.println("string:"+str);
            String sparqlQuery = ""
                    + "prefix dbo: <http://dbpedia.org/ontology/>\n"
                    + "prefix dbr: <http://dbpedia.org/resource/>\n"
                    + "prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n"
                    + "select ?population\n"
-                   + "where { dbr:Skopje dbo:populationTotal ?population;\n"
+                   + "where { dbr:"+str+" dbo:populationTotal ?population;\n"
                    + "}";
            
            Query query = QueryFactory.create(sparqlQuery);
