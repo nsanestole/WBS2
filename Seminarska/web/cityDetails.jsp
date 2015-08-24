@@ -4,7 +4,7 @@
     Author     : martin
 --%>
 
-<%@page import="model.Grad"%>
+<%@page import="model.CityDetail"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -13,7 +13,10 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <% Grad g = (Grad)request.getAttribute("grad"); %>
-        <h1><%=g.getPopulation() %></h1>
+        <% CityDetail city = (CityDetail)request.getAttribute("city"); %>
+        <div><span><%=city.getName()%></span></div>
+        <div><span><%=city.getPopulation()%></span></div>
+        <div><span><%=city.getPostalCode()%></span></div>
+        <div><span><%=city.getLeader()%></span></div>
     </body>
 </html>

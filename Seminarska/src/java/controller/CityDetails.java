@@ -7,13 +7,11 @@
 package controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Grad;
+import model.CityDetail;
 import org.apache.jena.query.Query;
 import org.apache.jena.query.QueryExecution;
 import org.apache.jena.query.QueryExecutionFactory;
@@ -55,9 +53,14 @@ public class CityDetails extends HttpServlet {
                    + "prefix dbo: <http://dbpedia.org/ontology/>\n"
                    + "prefix dbr: <http://dbpedia.org/resource/>\n"
                    + "prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n"
-                   + "select ?population\n"
-                   + "where { dbr:"+str+" dbo:populationTotal ?population;\n"
-                   + "}";
+                   + "prefix dbp: <http://dbpedia.org/property/>\n"
+                   + "select ?name ?population ?postalCode ?leader\n"
+                   + "where\n" 
+                   + "{"
+                   + "dbr:"+str+" dbp:nativeName ?name;\n"
+                   + "dbo:populationTotal ?population;\n"
+                   + "dbp:postalCode ?postalCode;\n"
+                   + "dbp:leaderName ?leader. }";
            
            Query query = QueryFactory.create(sparqlQuery);
             try (QueryExecution qexec = QueryExecutionFactory.sparqlService(sparqlEndpoint, query))
@@ -65,14 +68,13 @@ public class CityDetails extends HttpServlet {
                 org.apache.jena.query.ResultSet result = qexec.execSelect();
                 
                     QuerySolution sol = result.nextSolution();
-                    Grad g = new Grad();
-                   
-                    g.setPopulation(sol.get("population").toString());
-                
-                request.setAttribute("grad", g);
-                
-                System.out.println("GRAD"+g.getPopulation());
-                
+                    CityDetail city = new CityDetail();
+                    city.setName(sol.get("name").toString());
+                    city.setPopulation(sol.get("population").toString());
+                    city.setPostalCode(sol.get("postalCode").toString());
+                    city.setLeader(sol.get("leader").toString());
+                    
+                    request.setAttribute("city", city);
            
         } 
          getServletContext().getRequestDispatcher("/cityDetails.jsp").forward(request, response);
