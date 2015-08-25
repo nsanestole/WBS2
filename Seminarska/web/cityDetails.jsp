@@ -103,8 +103,16 @@
                 <div class="col-md-9">
                     <% CityDetail city = (CityDetail)request.getAttribute("city"); %>
                     <div class="row">
-                        <image src="<%=city.getThumb() %>" height="460" width="350"/> 
-                    </div>
+                         <iframe
+            
+  width="600"
+  height="450"
+  frameborder="0" style="border:1"
+  src="https://www.google.com/maps/embed/v1/view?key=AIzaSyAk3XKgfAnGHS8G-WATnb-rLCwS0wxid_Q&center=<%=city.getLat() %>,<%=city.getLongt() %>
+  &zoom=10
+" allowfullscreen>
+</iframe> 
+
     </br>
                     <div class="row">
                         
@@ -140,7 +148,6 @@
     <span><%=city.getLeader()%></span>
   </div>
 </div> 
-        
                     </div>
                 </div>
             </div>

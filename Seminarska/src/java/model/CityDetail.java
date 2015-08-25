@@ -16,6 +16,8 @@ public class CityDetail {
     private String abstr;
     private String leader;
     private String thumb;
+    private String lat;
+    private String longt;
 
     public String getAbstr() {
         return abstr;
@@ -74,6 +76,24 @@ public class CityDetail {
     public void setLeader(String leader) {
         this.leader = leader;
     }
+
+    public String getLat() {
+        return lat;
+    }
+
+    public void setLat(String lat) {
+        this.lat = lat;
+    }
+
+    public String getLongt() {
+        return longt;
+    }
+
+    public void setLongt(String longt) {
+        this.longt = longt;
+    }
+    
+    
     
     
 }

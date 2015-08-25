@@ -19,6 +19,7 @@ import org.apache.jena.query.QueryExecution;
 import org.apache.jena.query.QueryExecutionFactory;
 import org.apache.jena.query.QueryFactory;
 import org.apache.jena.query.QuerySolution;
+import org.apache.jena.rdf.model.Literal;
 
 /**
  *
@@ -56,33 +57,62 @@ public class CityDetails extends HttpServlet {
                    + "prefix dbr: <http://dbpedia.org/resource/>\n"
                    + "prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n"
                    + "prefix dbp: <http://dbpedia.org/property/>\n"
-                   + "select ?name ?population ?abstract ?leader ?slika\n"
+                   + "prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>\n"
+                   + "select ?name ?population ?abstract ?leader ?slika ?lat ?long\n"
                    + "where {\n"
                    + "dbr:" + str + " dbp:nativeName ?name; \n"
                    + "dbo:populationTotal ?population; \n"
                    + "dbo:thumbnail ?slika; \n"
                    + "dbo:abstract ?abstract; \n"
-                   + "dbp:leaderName ?leader. \n"
+                   + "geo:lat ?lat; \n"
+                   + "geo:long ?long; \n"
+                   + "dbp:leaderName ?leader; \n"
+                   + "geo:lat ?lat;\n"
+                   + "geo:long ?long.\n"
                    + "Filter(lang (?abstract) = \"en\")}";
            
            Query query = QueryFactory.create(sparqlQuery);
             try (QueryExecution qexec = QueryExecutionFactory.sparqlService(sparqlEndpoint, query))
             {
-                org.apache.jena.query.ResultSet result = qexec.execSelect();               
+                org.apache.jena.query.ResultSet result = qexec.execSelect(); 
+                    if(result.hasNext())
+                    {
                     QuerySolution sol = result.nextSolution();
                     System.out.println("SOL :" +sol.toString());
                   
                     CityDetail city = new CityDetail();
                     
+                    if(sol.get("name") != null)
                     city.setName(sol.get("name").toString());
+                    else city.setName("");
                     
+                    if(sol.get("population") != null)
                     city.setPopulation(sol.get("population").toString());
+                    else city.setPopulation("");
                    
                     city.setAbstract(sol.get("abstract").toString());
                     
+                    if(sol.get("leader") != null)
                     city.setLeader(sol.get("leader").toString());
+                    else city.setLeader("");
                     
+                    if(sol.get("slika") != null)
                     city.setThumb(sol.get("slika").toString());
+                    else city.setThumb("");
+                    
+                    if(sol.get("lat") != null)
+                    {
+                        System.out.println(sol.get("lat").toString().split("\\^")[0]);
+                        city.setLat(sol.get("lat").toString().split("\\^")[0]);
+                    }
+                    else city.setLat("0");
+                    
+                    if(sol.get("long") != null)
+                    {
+                        System.out.println(sol.get("long").toString().split("\\^")[0]);
+                        city.setLongt(sol.get("long").toString().split("\\^")[0]);
+                    }
+                    else city.setLongt("0");
                     
                     request.setAttribute("city", city);
                     
@@ -113,6 +143,8 @@ public class CityDetails extends HttpServlet {
                     
                     getServletContext().getRequestDispatcher("/cityDetails.jsp").forward(request, response);
             } 
+                    }
+                    else getServletContext().getRequestDispatcher("/sorryPage.jsp").forward(request, response);
          
     }
     }
