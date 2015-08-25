@@ -15,6 +15,23 @@ public class CityDetail {
     private String population;
     private String abstr;
     private String leader;
+    private String thumb;
+
+    public String getAbstr() {
+        return abstr;
+    }
+
+    public void setAbstr(String abstr) {
+        this.abstr = abstr;
+    }
+
+    public String getThumb() {
+        return thumb;
+    }
+
+    public void setThumb(String thumb) {
+        this.thumb = thumb;
+    }
 
     public CityDetail(String Name, String population, String abstr, String leader) {
         this.Name = Name;

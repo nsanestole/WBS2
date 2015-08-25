@@ -7,11 +7,13 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.CityDetail;
+import model.Grad;
 import org.apache.jena.query.Query;
 import org.apache.jena.query.QueryExecution;
 import org.apache.jena.query.QueryExecutionFactory;
@@ -54,10 +56,11 @@ public class CityDetails extends HttpServlet {
                    + "prefix dbr: <http://dbpedia.org/resource/>\n"
                    + "prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n"
                    + "prefix dbp: <http://dbpedia.org/property/>\n"
-                   + "select ?name ?population ?abstract ?leader\n"
+                   + "select ?name ?population ?abstract ?leader ?slika\n"
                    + "where {\n"
-                   + "dbr:Gostivar dbp:nativeName ?name; \n"
+                   + "dbr:" + str + " dbp:nativeName ?name; \n"
                    + "dbo:populationTotal ?population; \n"
+                   + "dbo:thumbnail ?slika; \n"
                    + "dbo:abstract ?abstract; \n"
                    + "dbp:leaderName ?leader. \n"
                    + "Filter(lang (?abstract) = \"en\")}";
@@ -79,11 +82,39 @@ public class CityDetails extends HttpServlet {
                     
                     city.setLeader(sol.get("leader").toString());
                     
+                    city.setThumb(sol.get("slika").toString());
+                    
                     request.setAttribute("city", city);
+                    
+                    sparqlQuery = ""
+                + "prefix dbo: <http://dbpedia.org/ontology/>\n"
+                + "prefix dbr: <http://dbpedia.org/resource/>\n"
+                + "prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n"
+                +
+"select ?grad ?slika\n" +
+"where { ?grad dbo:country dbr:Republic_of_Macedonia;\n" +
+"              rdf:type dbo:Settlement;\n" +
+"              dbo:thumbnail ?slika. }";
+        query = QueryFactory.create(sparqlQuery);
+        try (QueryExecution qe = QueryExecutionFactory.sparqlService(sparqlEndpoint, query))
+        {
+            result = qe.execSelect();
+            ArrayList<Grad> lista = new ArrayList<>();
+            while(result.hasNext())
+            {
+                sol = result.nextSolution();
+                Grad g = new Grad();
+                g.setName(sol.get("grad").toString());
+                g.setImgUrl(sol.get("slika").toString());
+                lista.add(g);
+            }
+            
+            request.setAttribute("gradovi", lista);
                     
                     getServletContext().getRequestDispatcher("/cityDetails.jsp").forward(request, response);
             } 
          
+    }
     }
 
     /**
