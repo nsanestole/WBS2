@@ -16,7 +16,7 @@
         <% CityDetail city = (CityDetail)request.getAttribute("city"); %>
         <div><span><%=city.getName()%></span></div>
         <div><span><%=city.getPopulation()%></span></div>
-        <div><span><%=city.getPostalCode()%></span></div>
+        <div><span><%=city.getAbstract()%></span></div>
         <div><span><%=city.getLeader()%></span></div>
     </body>
 </html>

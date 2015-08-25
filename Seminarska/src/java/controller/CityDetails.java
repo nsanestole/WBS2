@@ -54,30 +54,36 @@ public class CityDetails extends HttpServlet {
                    + "prefix dbr: <http://dbpedia.org/resource/>\n"
                    + "prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n"
                    + "prefix dbp: <http://dbpedia.org/property/>\n"
-                   + "select ?name ?population ?postalCode ?leader\n"
-                   + "where\n" 
-                   + "{"
-                   + "dbr:"+str+" dbp:nativeName ?name;\n"
-                   + "dbo:populationTotal ?population;\n"
-                   + "dbp:postalCode ?postalCode;\n"
-                   + "dbp:leaderName ?leader. }";
+                   + "select ?name ?population ?abstract ?leader\n"
+                   + "where {\n"
+                   + "dbr:Gostivar dbp:nativeName ?name; \n"
+                   + "dbo:populationTotal ?population; \n"
+                   + "dbo:abstract ?abstract; \n"
+                   + "dbp:leaderName ?leader. \n"
+                   + "Filter(lang (?abstract) = \"en\")}";
            
            Query query = QueryFactory.create(sparqlQuery);
             try (QueryExecution qexec = QueryExecutionFactory.sparqlService(sparqlEndpoint, query))
             {
-                org.apache.jena.query.ResultSet result = qexec.execSelect();
-                
+                org.apache.jena.query.ResultSet result = qexec.execSelect();               
                     QuerySolution sol = result.nextSolution();
+                    System.out.println("SOL :" +sol.toString());
+                  
                     CityDetail city = new CityDetail();
+                    
                     city.setName(sol.get("name").toString());
+                    
                     city.setPopulation(sol.get("population").toString());
-                    city.setPostalCode(sol.get("postalCode").toString());
+                   
+                    city.setAbstract(sol.get("abstract").toString());
+                    
                     city.setLeader(sol.get("leader").toString());
                     
                     request.setAttribute("city", city);
-           
-        } 
-         getServletContext().getRequestDispatcher("/cityDetails.jsp").forward(request, response);
+                    
+                    getServletContext().getRequestDispatcher("/cityDetails.jsp").forward(request, response);
+            } 
+         
     }
 
     /**

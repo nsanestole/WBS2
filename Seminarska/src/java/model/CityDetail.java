@@ -13,13 +13,13 @@ package model;
 public class CityDetail {
     private String Name;
     private String population;
-    private String postalCode;
+    private String abstr;
     private String leader;
 
-    public CityDetail(String Name, String population, String postalCode, String leader) {
+    public CityDetail(String Name, String population, String abstr, String leader) {
         this.Name = Name;
         this.population = population;
-        this.postalCode = postalCode;
+        this.abstr = abstr;
         this.leader = leader;
     }
 
@@ -42,12 +42,12 @@ public class CityDetail {
         this.population = population;
     }
 
-    public String getPostalCode() {
-        return postalCode;
+    public String getAbstract() {
+        return abstr;
     }
 
-    public void setPostalCode(String postalCode) {
-        this.postalCode = postalCode;
+    public void setAbstract(String abstr) {
+        this.abstr = abstr;
     }
 
     public String getLeader() {
