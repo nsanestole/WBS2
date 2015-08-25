@@ -116,9 +116,31 @@
     <span><%=city.getName()%></span>
   </div>
 </div>
-        <div><span><%=city.getPopulation()%></span></div>
-        <div><span><%=city.getAbstract()%></span></div>
-        <div><span><%=city.getLeader()%></span></div>
+  <div class="panel panel-defaul panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title">Broj na populacija</h3>
+  </div>
+  <div class="panel-body">
+    <span><%=city.getPopulation()%></span>
+  </div>
+</div>
+      <div class="panel panel-defaul panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title">Opis za gradot</h3>
+  </div>
+  <div class="panel-body">
+    <span><%=city.getAbstract()%></span>
+  </div>
+</div>  
+        <div class="panel panel-defaul panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title">Gradonacalnik</h3>
+  </div>
+  <div class="panel-body">
+    <span><%=city.getLeader()%></span>
+  </div>
+</div> 
+        
                     </div>
                 </div>
             </div>
