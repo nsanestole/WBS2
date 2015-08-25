@@ -89,12 +89,20 @@
         %>
         <%String str = item.getName();
                             String []parts = str.split("/");
+                               
+                           String str2 = parts[parts.length -1 ].split(",")[0];
+                           
+                           String str3 =  str2.replaceFirst("\\_\\(", " ");
+                           
+                           String[] str4 = str3.split(" ");
+                           
+                           String grad = str4[0];
                             %>
-        <a class="list-group-item" href="/Seminarska/details?grad=<%=parts[parts.length - 1]%>">
+        <a class="list-group-item" href="/Seminarska/details?grad=<%=grad%>">
             
                
                     
-                    <span><%=parts[parts.length - 1]%></span>
+                    <span><%=grad%></span>
            
         </a>
             <% } %>
