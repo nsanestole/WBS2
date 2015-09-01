@@ -47,11 +47,12 @@
       
       
       <ul class="nav navbar-nav navbar-right">
-        <form class="navbar-form navbar-left" role="search">
+        <form class="navbar-form navbar-left" method="post" action="/Seminarska/search">
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="Search">
+          <input type="text" class="form-control" name="search" id="search" placeholder="Search by settlement">
         </div>
-        <button type="submit" class="btn btn-default">Submit</button>
+            <input type="submit" class="btn btn-default" value="Submit">
+        
          <% 
             String username = (String)session.getAttribute("username");
              
@@ -67,7 +68,7 @@
         %>
         <a type="submit" class="btn btn-default" href="/Seminarska/login">Login</a>
         <% } %>
-      </form>
+     </form>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->

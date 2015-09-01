@@ -13,5 +13,6 @@
     </head>
     <body>
         <h1>Sorry we don't have info :(</h1>
+        <a href="/Seminarska/index" type="submit" class="btn btn-info">Back</a>
     </body>
 </html>

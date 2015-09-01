@@ -144,10 +144,10 @@ public class CityDetails extends HttpServlet {
             } else {
                 sparqlEndpoint = "http://localhost:2020/sparql";
                 str = request.getParameter("grad");
-                sparqlQuery = "PREFIX vocab: <http://localhost:2020/resource/vocab/> \n" 
-                        +"SELECT ?name ?population ?abstract ?leader ?slika ?lat ?long \n"
+                sparqlQuery = "PREFIX vocab: <http://localhost:2020/resource/vocab/> \n"
+                        + "SELECT ?name ?population ?abstract ?leader ?slika ?lat ?long \n"
                         + "where{ \n"
-                        + "?id vocab:city_name \""+str+"\";\n" 
+                        + "?id vocab:city_name \"" + str + "\";\n"
                         + "vocab:city_name ?name;\n "
                         + " vocab:city_population ?population; \n"
                         + " vocab:city_abstr ?abstract; \n "
@@ -206,7 +206,7 @@ public class CityDetails extends HttpServlet {
                         }
 
                         request.setAttribute("city", city);
-                        
+
                         sparqlEndpoint = "http://dbpedia.org/sparql";
                         sparqlQuery = ""
                                 + "prefix dbo: <http://dbpedia.org/ontology/>\n"
