@@ -76,13 +76,13 @@ public class CityDetails extends HttpServlet {
                 CityDetail city = new CityDetail();
 
                 if (sol.get("name") != null) {
-                    city.setName(sol.get("name").toString());
+                    city.setName(sol.get("name").toString().split("@")[0]);
                 } else {
                     city.setName("");
                 }
 
                 if (sol.get("population") != null) {
-                    city.setPopulation(sol.get("population").toString());
+                    city.setPopulation(sol.get("population").toString().split("\\^")[0]);
                 } else {
                     city.setPopulation("");
                 }
@@ -90,7 +90,7 @@ public class CityDetails extends HttpServlet {
                 city.setAbstract(sol.get("abstract").toString());
 
                 if (sol.get("leader") != null) {
-                    city.setLeader(sol.get("leader").toString());
+                    city.setLeader(sol.get("leader").toString().split("@")[0]);
                 } else {
                     city.setLeader("");
                 }
