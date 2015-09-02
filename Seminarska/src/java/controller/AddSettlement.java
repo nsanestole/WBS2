@@ -11,6 +11,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.jena.query.QueryExecution;
+import org.apache.jena.query.QueryExecutionFactory;
 
 /**
  *
@@ -59,8 +61,17 @@ public class AddSettlement extends HttpServlet {
         String Abstract = request.getParameter("abstract");
         String leader = request.getParameter("leader");
         
-        String sqlQuery = "INSERT DATA INTO <http://localhost:2020/data/users> \n"
-        + "{ ";
+        String sqlQuery = "INSERT DATA { \n"
+        + "<http://localhost:2020/data/city> vocab:city_name \""+settlementName+"\" \n"
+                +"vocab:city_population \""+population+"\" \n"
+                +"vocab:city_abstr \""+Abstract+"\" \n"
+                +"vocab:city_leader \""+leader+"\" \n"
+                + "}";
+        
+        try (QueryExecution qexec1 = QueryExecutionFactory.sparqlService(sparqlEndpoint, sqlQuery)) {
+            
+        }
+        
 
     }
 

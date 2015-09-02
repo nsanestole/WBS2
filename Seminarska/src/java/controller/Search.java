@@ -71,10 +71,11 @@ public class Search extends HttpServlet {
                 + " vocab:city_thumb ?thumb. \n"
                 + " FILTER regex(?name , \"" + search + "\", \"i\") }";
         Query query = QueryFactory.create(sparqlQuery);
+        ArrayList<Grad> lista = new ArrayList<>();
         try (QueryExecution qexec1 = QueryExecutionFactory.sparqlService(sparqlEndpoint, query)) {
             ResultSet result = qexec1.execSelect();
             if (result.hasNext()) {
-                ArrayList<Grad> lista = new ArrayList<>();
+                 
                 while (result.hasNext()) {
                     QuerySolution sol = result.nextSolution();
                     Grad g = new Grad();
@@ -101,7 +102,6 @@ public class Search extends HttpServlet {
                 try (QueryExecution qexec = QueryExecutionFactory.sparqlService(sparqlEndpoint, query)) {
                     result = qexec.execSelect();
                     if (result.hasNext()) {
-                        ArrayList<Grad> lista = new ArrayList<>();
                         while (result.hasNext()) {
                             QuerySolution sol = result.nextSolution();
                             Grad g = new Grad();
