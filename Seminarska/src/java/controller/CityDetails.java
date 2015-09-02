@@ -43,12 +43,15 @@ public class CityDetails extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    
+    //Servlet za prikaz na detalite na grad/naseleno mesto
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String sparqlEndpoint = "http://dbpedia.org/sparql";
         String str = request.getParameter("grad");
         System.out.println("string:" + str);
+        //Podatocite se zimamt od dbpedia
         String sparqlQuery = ""
                 + "prefix dbo: <http://dbpedia.org/ontology/>\n"
                 + "prefix dbr: <http://dbpedia.org/resource/>\n"
@@ -65,7 +68,8 @@ public class CityDetails extends HttpServlet {
                 + "geo:long ?long; \n"
                 + "dbp:leaderName ?leader; \n"
                 + "Filter(lang (?abstract) = \"en\")}";
-
+        
+        
         Query query = QueryFactory.create(sparqlQuery);
         try (QueryExecution qexec = QueryExecutionFactory.sparqlService(sparqlEndpoint, query)) {
             org.apache.jena.query.ResultSet result = qexec.execSelect();
@@ -116,7 +120,7 @@ public class CityDetails extends HttpServlet {
                 }
 
                 request.setAttribute("city", city);
-
+                   //Za prikaz na stranicno meni 
                 sparqlQuery = ""
                         + "prefix dbo: <http://dbpedia.org/ontology/>\n"
                         + "prefix dbr: <http://dbpedia.org/resource/>\n"
@@ -142,6 +146,8 @@ public class CityDetails extends HttpServlet {
                     getServletContext().getRequestDispatcher("/cityDetails.jsp").forward(request, response);
                 }
             } else {
+                
+                //Podatocite se zimaat od baza
                 sparqlEndpoint = "http://localhost:2020/sparql";
                 str = request.getParameter("grad");
                 sparqlQuery = "PREFIX vocab: <http://localhost:2020/resource/vocab/> \n"
@@ -207,6 +213,8 @@ public class CityDetails extends HttpServlet {
 
                         request.setAttribute("city", city);
 
+                        
+                        //Za prikaz na stranicnoto meni
                         sparqlEndpoint = "http://dbpedia.org/sparql";
                         sparqlQuery = ""
                                 + "prefix dbo: <http://dbpedia.org/ontology/>\n"

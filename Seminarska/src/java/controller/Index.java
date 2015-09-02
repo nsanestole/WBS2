@@ -45,9 +45,13 @@ public class Index extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    
+    //Pocetna strana 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        //Za prikaz na stranicno meni i na podatocite pod carousel
         String sparqlEndpoint = "http://dbpedia.org/sparql";
         String sparqlQuery = ""
                 + "prefix dbo: <http://dbpedia.org/ontology/>\n"

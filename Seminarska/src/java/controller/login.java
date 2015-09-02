@@ -58,12 +58,14 @@ public class login extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    //Za logiranje na korisnik
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String sparqlEndpoint = "http://localhost:2020/sparql";
         String username = request.getParameter("username");
         String password = request.getParameter("password");
+        //Za proverka dali postoi korisnik i negova najava
         String sparqlQuery = "PREFIX vocab: <http://localhost:2020/resource/vocab/> \n"
                 + "SELECT ?username ?password \n"
                 + "WHERE { \n "

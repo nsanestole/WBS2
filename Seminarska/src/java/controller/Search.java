@@ -63,7 +63,7 @@ public class Search extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String search = request.getParameter("search");
-
+        //Za prebaruvanje na grad od baza 
         String sparqlEndpoint = "http://localhost:2020/sparql";
         String sparqlQuery = "PREFIX vocab: <http://localhost:2020/resource/vocab/> \n"
                 + "SELECT * WHERE { \n"
@@ -88,6 +88,7 @@ public class Search extends HttpServlet {
                 request.setAttribute("gradovi", lista);
                 getServletContext().getRequestDispatcher("/search.jsp").forward(request, response);
             } else {
+                //Za prebaruvanje na podatoci od dbpedia
                 sparqlEndpoint = "http://dbpedia.org/sparql";
                 sparqlQuery = ""
                         + "prefix dbo: <http://dbpedia.org/ontology/>\n"
